@@ -1,0 +1,299 @@
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+body { margin: 0; background: #f5f6f8; color: #111; }
+
+.topbar {
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 14px 18px; background:#111; color:#fff;
+}
+.top-actions { display:flex; gap:10px; align-items:center; }
+
+.btn-export{
+  padding:10px 14px; border:0; cursor:pointer;
+  border-radius:10px;
+  background:#008080; color:#fff;
+  display:flex; align-items:center; gap:10px;
+}
+.btn-export:disabled{ opacity:.75; cursor:not-allowed; }
+
+.btn-spinner{
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  display:none;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg);} }
+
+.btn-export.is-loading .btn-spinner{ display:inline-block; }
+.btn-export.is-loading .btn-text{ opacity:.9; }
+
+.template-box{
+  display:flex; align-items:center; gap:8px;
+  padding: 8px 10px;
+  border-radius:10px;
+  background:#222;
+}
+.template-label{ font-size: 12px; opacity:.85; }
+.template-select{
+  background:#111; color:#fff; border: 1px solid rgba(255,255,255,.15);
+  padding: 8px 10px; border-radius:10px;
+  outline:none;
+}
+
+.grid { display:grid; gap:16px; padding:16px; grid-template-columns: 360px 1fr; }
+.card { background:#B9B5C1; padding:16px; border-radius:12px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+
+.grid > .card:nth-child(2){
+  background: #f3f6ff; 
+}
+
+label { display:block; margin:10px 0; }
+input, select { width:100%; padding:10px; margin-top:6px; border:1px solid #ddd; border-radius:10px; }
+input:focus, select:focus{ outline:none; border-color:#008080; box-shadow: 0 0 0 3px rgba(0,128,128,.12); }
+hr { margin: 16px 0; }
+.hint { font-size: 13px; color:#555; }
+
+.req{ color:#d32f2f; font-weight:900; margin-left:4px; }
+.err{ color:#d32f2f; display:block; margin-top:6px; min-height: 16px; }
+.invalid{ border-color:#d32f2f !important; box-shadow: 0 0 0 3px rgba(211,47,47,.12) !important; }
+
+/* footer */
+.app-footer{
+  padding: 14px 18px;
+  color:#444;
+  font-size: 13px;
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* =========================
+   COVER TEMPLATE BASE
+   ========================= */
+
+.cover{
+  width: 794px; height: 1123px;
+  margin: 10px auto;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: 70px;
+}
+
+/* diagonal corners (used by default teal template only) */
+.corner-top{
+  position:absolute;
+  left:-160px; top:-170px;
+  width: 600px; height: 360px;
+  background: rgba(0, 128, 128, 0.18);
+  transform: rotate(-25deg);
+  z-index: 0;
+}
+.corner-bottom{
+  position:absolute;
+  right:-260px; bottom:-260px;
+  width: 820px; height: 520px;
+  background: rgba(0, 128, 128, 0.22);
+  transform: rotate(-25deg);
+  z-index: 0;
+}
+
+/* header */
+.top-row{
+  position: relative;
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  z-index: 2; /* keep above template backgrounds */
+}
+.logo-fixed{
+  width: 64px; height: 64px; object-fit: contain;
+}
+
+/*  University line: stronger, single line, no wrapping */
+.uni-fixed{
+  flex:1;
+  text-align:center;
+  font-size: 25px;        /* bigger */
+  font-weight: 900;       /* stronger */
+  letter-spacing: .4px;
+  white-space: nowrap;    /* force single line */
+  overflow: hidden;       /* prevent overflow */
+  text-overflow: ellipsis;/* if screen too small, show ... */
+}
+
+/* middle centered  slightly upper) */
+.center-block{
+  position: absolute;
+  left: 70px; right: 70px;
+  top: 47%;                  /* was 50% (moves up a bit) */
+  transform: translateY(-50%);
+  text-align: center;
+  z-index: 2;
+}
+
+/* middle text a bit bigger */
+.assType{
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  margin-bottom: 22px;
+}
+.topic{
+  font-size: 25px;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+.line{
+  font-size: 21px;
+  margin: 14px 0;
+}
+
+/* bottom two (✅ bigger text for A4 proportion) */
+.bottom-two{
+  position:absolute;
+  left: 100px; right: 80px;
+  bottom: 60px;
+  display:flex;
+  justify-content: space-between;
+  gap: 40px;
+  z-index: 2;
+}
+.box{ width: 50%; }
+
+/* headers bigger */
+.box-title{
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+/* body bigger */
+.small{
+  font-size: 20px;
+  margin: 8px 0;
+  line-height: 1.35;
+}
+
+/* name stronger and bigger */
+.name-strong{
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: .3px;
+}
+
+.fixed-uni-bottom{
+  margin-top: 12px;
+  font-size: 19px;
+}
+
+/* ========================= 
+   EXTRA TEMPLATES
+   ========================= */
+
+/* Default: teal */
+.cover.t-brur .corner-top{ background: rgba(0,128,128,.18); }
+.cover.t-brur .corner-bottom{ background: rgba(0,128,128,.22); }
+.cover.t-brur .btn-accent{ color:#008080; }
+
+/* Slate */
+.cover.t-slate .corner-top{ background: rgba(60,70,90,.18); }
+.cover.t-slate .corner-bottom{ background: rgba(60,70,90,.22); }
+
+/* Sky */
+.cover.t-sky .corner-top{ background: rgba(0,120,255,.14); }
+.cover.t-sky .corner-bottom{ background: rgba(0,120,255,.18); }
+
+/* =========================
+   CSS SHAPE TEMPLATES
+   ========================= */
+
+/* Base: ensure cover background is white unless template overrides */
+.cover { background: #fff; }
+
+/* -------------------------
+   Template: Diagonal Layers (LIGHT lavender/pastel)
+   ------------------------- */
+.cover.t-diagonal{
+  background:
+    /* soft diagonals */
+    linear-gradient(135deg, rgba(160, 140, 210, 0.35) 0 28%, transparent 28% 100%),
+    linear-gradient(315deg, rgba(170, 195, 235, 0.32) 0 24%, transparent 24% 100%),
+
+    /* main pastel background */
+    linear-gradient(
+      135deg,
+      rgba(248, 242, 255, 0.98),
+      rgba(228, 238, 255, 0.90),
+      rgba(243, 246, 255, 0.96)
+    );
+}
+
+/* big soft middle panel */
+.cover.t-diagonal::before{
+  content:"";
+  position:absolute;
+  inset: 160px 120px;
+  transform: skewX(-18deg) rotate(-8deg);
+  background: linear-gradient(135deg, rgba(255,255,255,0.70), rgba(255,255,255,0.28));
+  border-radius: 18px;
+  z-index: 0;
+}
+
+/* very light vignette */
+.cover.t-diagonal::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 35% 40%, rgba(255,255,255,0.0), rgba(50,50,80,0.08));
+  z-index: 0;
+}
+
+/* -------------------------
+   Template: Wave Frame (CSS approximation)
+   ------------------------- */
+.cover.t-wave{
+  background: #ffffff;
+}
+
+/* disable old corners */
+.cover.t-wave .corner-top,
+.cover.t-wave .corner-bottom{
+  display:none;
+}
+
+.cover.t-wave::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height: 170px;
+  background:
+    radial-gradient(120px 80px at 10% 70%, rgba(0,120,180,0.28), transparent 70%),
+    radial-gradient(170px 110px at 35% 40%, rgba(70,40,140,0.22), transparent 70%),
+    radial-gradient(240px 150px at 78% 10%, rgba(0,120,180,0.30), transparent 70%),
+    linear-gradient(90deg, rgba(50,10,120,0.14), rgba(0,140,170,0.12), rgba(50,10,120,0.10)),
+    repeating-linear-gradient(135deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 9px);
+  clip-path: ellipse(120% 100% at 50% 0%);
+  z-index: 0;
+}
+
+.cover.t-wave::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height: 180px;
+  background:
+    radial-gradient(140px 90px at 15% 40%, rgba(0,120,180,0.25), transparent 70%),
+    radial-gradient(220px 150px at 70% 75%, rgba(70,40,140,0.18), transparent 70%),
+    linear-gradient(90deg, rgba(0,140,170,0.10), rgba(50,10,120,0.12), rgba(0,140,170,0.10)),
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 9px);
+  clip-path: ellipse(120% 100% at 50% 100%);
+  z-index: 0;
+}
+
+
+
+/* extra contrast panels */
+.cover.t-wave .center-block,

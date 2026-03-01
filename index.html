@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cover Page Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Cover Page</h1>
+
+    <div class="top-actions">
+      <!-- Template Selector (small box like export) -->
+      <div class="template-box">
+        <span class="template-label">Template</span>
+        <select id="templateSelect" class="template-select">
+          <option value="t-brur">Teal</option>
+    	  <option value="t-diagonal">Diagonal Layers (Blue)</option>
+	  <option value="t-wave">Wave Frame</option>
+        </select>
+      </div>
+
+      <button id="btnPdf" class="btn-export">
+        <span class="btn-text">Export PDF</span>
+        <span class="btn-spinner" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- FORM -->
+    <section class="card">
+      <h2>Fill Details</h2>
+
+      <label>Assignment Type
+        <input id="asstype" value="ASSIGNMENT ON" />
+      </label>
+
+      <label>Assignment Topic
+        <input id="topic" placeholder="e.g. Microprocessor and Microcontrollers Question" />
+      </label>
+
+      <label>Course Title
+        <input id="courseTitle" placeholder="e.g. Microprocessor and Microcontrollers" />
+      </label>
+
+      <label>Course Code
+        <input id="courseCode" placeholder="e.g. CSE 2201" />
+      </label>
+
+      <label>Submission Date
+        <input id="subDate" type="date" />
+      </label>
+
+      <hr />
+
+      <h3>Submitted By</h3>
+
+      <label>Name <span class="req">*</span>
+        <input id="byName" placeholder="e.g. MD. NAYEMUR SHAHRIAR" />
+        <small class="err" id="errByName"></small>
+      </label>
+
+      <label>ID <span class="req">*</span>
+        <input id="byId" placeholder="e.g. 12205007" />
+        <small class="err" id="errById"></small>
+      </label>
+
+      <label>Registration
+        <input id="byReg" placeholder="e.g. 2022xxxxxx" />
+      </label>
+
+      <label>Session
+        <select id="bySession"></select>
+      </label>
+
+      <label>Department (Select)
+        <select id="byDept"></select>
+      </label>
+
+      <hr />
+
+      <h3>Submitted To</h3>
+	
+
+      <label>Department (Select)
+         <select id="toDept"></select>
+      </label>
+
+      <label>Teacher Name
+        <input list="teacherList" id="toName" placeholder="Type or Select Teacher">
+        <datalist id="teacherList"></datalist>
+      </label>
+
+      <label>Designation (Select)
+        <select id="toDesig"></select>
+      </label>
+
+      
+
+      <p class="hint">Preview updates automatically. Export will generate PDF offline.</p>
+    </section>
+
+    <!-- PREVIEW -->
+    <section class="card">
+      <h2>Preview</h2>
+
+      <div id="cover" class="cover t-brur">
+        <!-- diagonal corner shapes -->
+        <div class="corner-top"></div>
+        <div class="corner-bottom"></div>
+
+        <!-- top row -->
+        <div class="top-row">
+          <img class="logo-fixed" src="brur_logo.png" alt="BRUR Logo" />
+          <div class="uni-fixed" id="pUniversity">BEGUM ROKEYA UNIVERSITY, RANGPUR</div>
+        </div>
+
+        <!-- middle centered block -->
+        <div class="center-block">
+          <div class="assType" id="pAsstype">ASSIGNMENT ON</div>
+
+          <div class="topic" id="pTopic">Assignment Topic</div>
+
+          <div class="line"><b>Course Title:</b> <span id="pCourseTitle">Course Title</span></div>
+          <div class="line"><b>Course Code:</b> <span id="pCourseCode">Course Code</span></div>
+          <div class="line"><b>Submission date:</b> <span id="pSubDate">DD MONTH YYYY</span></div>
+        </div>
+
+        <!-- bottom sections -->
+        <div class="bottom-two">
+          <div class="box">
+            <div class="box-title">Submitted By</div>
+            <div class="small name-strong" id="pByName">YOUR NAME</div>
+            <div class="small"><b>ID:</b> <span id="pById">Your ID</span></div>
+            <div class="small"><b>Reg:</b> <span id="pByReg">—</span></div>
+            <div class="small"><b>Session:</b> <span id="pBySession">Session</span></div>
+            <div class="small" id="pByDept">Department</div>
+            <div class="small fixed-uni-bottom" id="pUniBottomLeft">Begum Rokeya University, Rangpur</div>
+          </div>
+
+          <div class="box">
+            <div class="box-title">Submitted To</div>
+            <div class="small name-strong" id="pToName">TEACHER NAME</div>
+            <div class="small" id="pToDesig">DESIGNATION</div>
+            <div class="small" id="pToDept">Department</div>
+            <div class="small fixed-uni-bottom" id="pUniBottomRight">Begum Rokeya University, Rangpur</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer personal info -->
+  <footer class="app-footer">
+    <div>VERSION 1.0 © All Rights Reserved by <b>NAYEMUR SHAHRIAR (CSE 15TH)</b> • Contact: <b>nayemur3577@gmail.com </b></div>
+  </footer>
+
+  <!-- libs -->
+  <script src="libs/html2canvas.min.js"></script>
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+
+  <!-- register SW -->
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js");
+  }
+</script>
+</body>
+</html>
