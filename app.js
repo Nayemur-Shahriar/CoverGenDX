@@ -57,29 +57,65 @@ setText("pUniBottomRight", FIXED_UNIVERSITY_BOTTOM);
 
 /* ========= DEPARTMENTS ========= */
 const departmentGroups = [
-  { label: "Faculty Of Arts", options: [
-    "Department Of Bangla",
-    "Department Of English",
-    "History and Archaeology",
-  ]},
-  { label: "Faculty Of Social Sciences", options: [
-    "Department of Economics",
-    "Department of Political Science",
-    "Department of Sociology",
-    "Department of Gender and Development Studies",
-    "Department of Mass Communication and Journalism",
-    "Department of Public Administration",
-  ]},
-  { label: "Faculty Of Science", options: [
-    "Department of Mathematics",
-    "Department of Statistics",
-    "Department of Physics",
-    "Department of Chemistry",
-  ]},
-  { label: "Faculty Of Engineering And Technology", options: [
-    "Department of Computer Science and Engineering (CSE)",
-    "Department of Electrical and Electronic Engineering (EEE)",
-  ]}
+
+  {
+    label: "Faculty Of Arts",
+    options: [
+      "Department Of Bangla",
+      "Department Of English",
+      "History and Archaeology"
+    ]
+  },
+
+  {
+    label: "Faculty Of Life And Earth Science",
+    options: [
+      "Department of Geography and Environmental Science",
+      "Department of Disaster Science and Management"
+    ]
+  },
+
+  {
+    label: "Faculty Of Science",
+    options: [
+      "Department of Mathematics",
+      "Department of Statistics",
+      "Department of Physics",
+      "Department of Chemistry"
+    ]
+  },
+
+  {
+    label: "Faculty Of Engineering And Technology",
+    options: [
+      "Department of Computer Science and Engineering (CSE)",
+      "Department of Electrical and Electronic Engineering (EEE)"
+    ]
+  },
+
+  {
+    label: "Faculty Of Social Sciences",
+    options: [
+      "Department of Economics",
+      "Department of Political Science",
+      "Department of Sociology",
+      "Department of Gender and Development Studies",
+      "Department of Mass Communication and Journalism",
+      "Department of Public Administration"
+    ]
+  },
+
+  {
+    label: "Faculty Of Business Studies",
+    options: [
+      "Department of Management Studies",
+      "Department of Marketing",
+      "Department of Accounting and Information Systems",
+      "Department of Finance and Banking",
+      "Department of Management Information Systems(MIS)"
+    ]
+  }
+
 ];
 
 function fillSelect(id, items) {
