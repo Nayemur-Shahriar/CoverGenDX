@@ -1,10 +1,9 @@
-
 const $ = (id) => document.getElementById(id);
 
 /* ========= CONSTANTS ========= */
 const FIXED_UNIVERSITY_TOP = "BEGUM ROKEYA UNIVERSITY, RANGPUR";
 const FIXED_UNIVERSITY_BOTTOM = "Begum Rokeya University, Rangpur";
-const STORAGE_KEY = "covergen_form_v1";
+const STORAGE_KEY = "covergen_form_v2";
 
 /* ========= HELPERS ========= */
 function formatDate(yyyy_mm_dd) {
@@ -36,29 +35,44 @@ setText("pUniversity", FIXED_UNIVERSITY_TOP);
 setText("pUniBottomLeft", FIXED_UNIVERSITY_BOTTOM);
 setText("pUniBottomRight", FIXED_UNIVERSITY_BOTTOM);
 
+/* ========= TEMPLATE SYSTEM ========= */
+const ALL_TEMPLATES = [
+  "t-brur",
+  "t-diagonal",
+  "t-wave",
+  "t-hex",
+  "t-slate",
+  "t-sky"
+];
+
+$("templateSelect")?.addEventListener("change", () => {
+  const cover = $("cover");
+  const val = $("templateSelect").value;
+
+  cover.classList.remove(...ALL_TEMPLATES);
+  cover.classList.add(val);
+
+  saveForm();
+});
+
 /* ========= SESSION ========= */
 (function populateSessions() {
   const now = new Date();
   const currentYear = now.getFullYear();
-  const sessions = [];
-  for (let y = 2019; y <= currentYear; y++) {
-    sessions.push(`${y}-${y+1}`);
-  }
   const sel = $("bySession");
   if (!sel) return;
+
   sel.innerHTML = "";
-  sessions.forEach(s=>{
-    const o=document.createElement("option");
-    o.value=s;
-    o.textContent=s;
-    sel.appendChild(o);
-  });
+  for (let y = 2019; y <= currentYear; y++) {
+    const opt = document.createElement("option");
+    opt.value = `${y}-${y+1}`;
+    opt.textContent = `${y}-${y+1}`;
+    sel.appendChild(opt);
+  }
 })();
 
 /* ========= DEPARTMENTS ========= */
-const departmentGroups = [
-
-  {
+const departmentGroups = [{
     label: "Faculty Of Arts",
     options: [
       "Department Of Bangla",
@@ -88,8 +102,8 @@ const departmentGroups = [
   {
     label: "Faculty Of Engineering And Technology",
     options: [
-      "Department of Computer Science and Engineering (CSE)",
-      "Department of Electrical and Electronic Engineering (EEE)"
+      "Department of Computer Science and Engineering",
+      "Department of Electrical and Electronic Engineering"
     ]
   },
 
@@ -115,43 +129,9 @@ const departmentGroups = [
       "Department of Management Information Systems(MIS)"
     ]
   }
-
 ];
 
-function fillSelect(id, items) {
-  const sel = $(id);
-  if (!sel) return;
-  sel.innerHTML = "";
 
-  items.forEach(group => {
-    const optgroup = document.createElement("optgroup");
-    optgroup.label = group.label;
-
-    group.options.forEach(dept => {
-      const opt = document.createElement("option");
-      opt.value = dept;
-      opt.textContent = dept;
-      optgroup.appendChild(opt);
-    });
-
-    sel.appendChild(optgroup);
-  });
-}
-
-fillSelect("byDept", departmentGroups);
-fillSelect("toDept", departmentGroups);
-
-/* ========= DESIGNATION ========= */
-const designations = ["Lecturer","Assistant Professor","Associate Professor","Professor"];
-const desigSelect = $("toDesig");
-if (desigSelect) {
-  designations.forEach(d=>{
-    const opt=document.createElement("option");
-    opt.value=d;
-    opt.textContent=d;
-    desigSelect.appendChild(opt);
-  });
-}
 
 /* ========= FULL TEACHER DATA ========= */
 /* ========= COMPLETE TEACHERS DEPT WISE ========= */
@@ -446,9 +426,38 @@ const teacherData = {
 
 
 
+function fillSelect(id, items) {
+  const sel = $(id);
+  if (!sel) return;
+  sel.innerHTML = "";
+  items.forEach(group => {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = group.label;
+    group.options.forEach(dept => {
+      const opt = document.createElement("option");
+      opt.value = dept;
+      opt.textContent = dept;
+      optgroup.appendChild(opt);
+    });
+    sel.appendChild(optgroup);
+  });
+}
+fillSelect("byDept", departmentGroups);
+fillSelect("toDept", departmentGroups);
 
-/* ========= TEACHER FILTER SYSTEM ========= */
+/* ========= DESIGNATION ========= */
+const designations = ["Lecturer","Assistant Professor","Associate Professor","Professor"];
+const desigSelect = $("toDesig");
+if (desigSelect) {
+  designations.forEach(d=>{
+    const opt=document.createElement("option");
+    opt.value=d;
+    opt.textContent=d;
+    desigSelect.appendChild(opt);
+  });
+}
 
+/* ========= TEACHER FILTER ========= */
 function updateTeachersByDept(dept) {
   const teacherList = $("teacherList");
   if (!teacherList) return;
@@ -462,36 +471,13 @@ function updateTeachersByDept(dept) {
   });
 }
 
-$("templateSelect")?.addEventListener("change", () => {
-  const cover = $("cover");
-  const val = $("templateSelect").value;
-
-  cover.classList.remove("t-brur", "t-diagonal", "t-wave");
-  cover.classList.add(val);
-
-  saveForm();
-});
-
-
 $("toDept")?.addEventListener("change", (e) => {
   const dept = e.target.value;
-
-  // 1. Update teacher list based on selected department
   updateTeachersByDept(dept);
-
-  // 2. Clear teacher input
   $("toName").value = "";
-
-  // 3. Update preview department text
   setText("pToDept", dept);
   setText("pToName", "TEACHER NAME");
-
   saveForm();
-});
-
-/* ========= LOAD INITIAL ========= */
-document.addEventListener("DOMContentLoaded",()=>{
-  updateTeachersByDept($("toDept").value);
 });
 
 /* ========= BINDINGS ========= */
@@ -526,6 +512,7 @@ bindings.forEach(([inputId, previewId, fmt])=>{
 /* ========= SAVE / RESTORE ========= */
 function saveForm(){
   const data={
+    template:$("templateSelect")?.value||"t-brur",
     byName:$("byName")?.value||"",
     byId:$("byId")?.value||"",
     byReg:$("byReg")?.value||"",
@@ -548,36 +535,49 @@ function restoreForm(){
   const data=JSON.parse(raw);
 
   Object.keys(data).forEach(k=>{
-  if($(k)) $(k).value=data[k];
-});
+    if($(k)) $(k).value=data[k];
+  });
 
-// IMPORTANT: update teacher list FIRST
-updateTeachersByDept($("toDept").value);
+  // restore template
+  if(data.template && ALL_TEMPLATES.includes(data.template)){
+    const cover = $("cover");
+    cover.classList.remove(...ALL_TEMPLATES);
+    cover.classList.add(data.template);
+  }
 
-// Then apply teacher name
-if(data.toName){
-  $("toName").value = data.toName;
-}
-
+  if ($("toDept")?.value) {
   updateTeachersByDept($("toDept").value);
+}
 
   bindings.forEach(([inputId, previewId, fmt])=>{
     const el=$(inputId);
     if(el) setText(previewId,fmt(el.value));
   });
-
-  setText("pToName",$("toName").value? $("toName").value.toUpperCase():"TEACHER NAME");
 }
 restoreForm();
 
 /* ========= EXPORT ========= */
 $("btnPdf")?.addEventListener("click",async()=>{
-  const canvas=await html2canvas($("cover"),{scale:2,useCORS:true,backgroundColor:"#ffffff"});
+  const btn=$("btnPdf");
+  btn.classList.add("is-loading");
+
+  const canvas=await html2canvas($("cover"),{
+    scale:2,
+    useCORS:true,
+    backgroundColor:"#ffffff"
+  });
+
   const imgData=canvas.toDataURL("image/png");
   const { jsPDF }=window.jspdf;
   const pdf=new jsPDF("p","pt","a4");
+
   const w=pdf.internal.pageSize.getWidth();
   const h=(canvas.height*w)/canvas.width;
+
   pdf.addImage(imgData,"PNG",0,(pdf.internal.pageSize.getHeight()-h)/2,w,h);
-  pdf.save(`${sanitizeFilePart($("byName").value)}_${sanitizeFilePart($("courseCode").value)}_Cover.pdf`);
+  const namePart = sanitizeFilePart($("byName").value) || "Student";
+const codePart = sanitizeFilePart($("courseCode").value) || "Course";
+pdf.save(`${namePart}_${codePart}_Cover.pdf`);
+
+  btn.classList.remove("is-loading");
 });
