@@ -23,6 +23,7 @@ body { margin: 0; background: #f5f6f8; color: #111; }
   display:none;
   animation: spin .8s linear infinite;
 }
+
 @keyframes spin { to { transform: rotate(360deg);} }
 
 .btn-export.is-loading .btn-spinner{ display:inline-block; }
@@ -62,7 +63,7 @@ hr { margin: 16px 0; }
 .app-footer{
   padding: 14px 18px;
   color:#444;
-  font-size: 13px;
+  font-size: 22px;
   display:flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -251,49 +252,111 @@ hr { margin: 16px 0; }
   z-index: 0;
 }
 
+
+
+
+
 /* -------------------------
-   Template: Wave Frame (CSS approximation)
+   Template: Soft Blush Layers
    ------------------------- */
-.cover.t-wave{
-  background: #ffffff;
+.cover.t-blush{
+  background:
+    linear-gradient(140deg, rgba(255, 190, 200, 0.35) 0 25%, transparent 25% 100%),
+    linear-gradient(320deg, rgba(255, 220, 190, 0.30) 0 22%, transparent 22% 100%),
+    linear-gradient(
+      135deg,
+      #fff7f9,
+      #fff0f3,
+      #fff9f4
+    );
 }
 
-/* disable old corners */
-.cover.t-wave .corner-top,
-.cover.t-wave .corner-bottom{
-  display:none;
-}
-
-.cover.t-wave::before{
+.cover.t-blush::before{
   content:"";
   position:absolute;
-  left:0; right:0; top:0;
-  height: 170px;
-  background:
-    radial-gradient(120px 80px at 10% 70%, rgba(0,120,180,0.28), transparent 70%),
-    radial-gradient(170px 110px at 35% 40%, rgba(70,40,140,0.22), transparent 70%),
-    radial-gradient(240px 150px at 78% 10%, rgba(0,120,180,0.30), transparent 70%),
-    linear-gradient(90deg, rgba(50,10,120,0.14), rgba(0,140,170,0.12), rgba(50,10,120,0.10)),
-    repeating-linear-gradient(135deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 9px);
-  clip-path: ellipse(120% 100% at 50% 0%);
+  inset: 150px 130px;
+  transform: rotate(-6deg);
+  background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,240,240,0.3));
+  border-radius: 20px;
   z-index: 0;
 }
 
-.cover.t-wave::after{
+.cover.t-blush::after{
   content:"";
   position:absolute;
-  left:0; right:0; bottom:0;
-  height: 180px;
+  inset:0;
+  background: radial-gradient(circle at 70% 20%, rgba(255,200,210,0.15), transparent 60%);
+  z-index:0;
+}
+
+
+/* -------------------------
+   Template: Soft Mint Wave
+   ------------------------- */
+.cover.t-mint{
   background:
-    radial-gradient(140px 90px at 15% 40%, rgba(0,120,180,0.25), transparent 70%),
-    radial-gradient(220px 150px at 70% 75%, rgba(70,40,140,0.18), transparent 70%),
-    linear-gradient(90deg, rgba(0,140,170,0.10), rgba(50,10,120,0.12), rgba(0,140,170,0.10)),
-    repeating-linear-gradient(45deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 9px);
-  clip-path: ellipse(120% 100% at 50% 100%);
-  z-index: 0;
+    linear-gradient(135deg, rgba(170, 230, 210, 0.35) 0 28%, transparent 28% 100%),
+    linear-gradient(315deg, rgba(200, 240, 220, 0.30) 0 24%, transparent 24% 100%),
+    linear-gradient(
+      135deg,
+      #f4fffb,
+      #e8fff6,
+      #f8fffd
+    );
+}
+
+.cover.t-mint::before{
+  content:"";
+  position:absolute;
+  inset: 160px 110px;
+  transform: skewX(-14deg);
+  background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(210,255,240,0.25));
+  border-radius: 18px;
+  z-index:0;
+}
+
+.cover.t-mint::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 30% 60%, rgba(180,255,230,0.15), transparent 60%);
+  z-index:0;
 }
 
 
 
-/* extra contrast panels */
-.cover.t-wave .center-block,
+/* -------------------------
+   Template: Soft Sky Glass
+   ------------------------- */
+.cover.t-skyglass{
+  background:
+    linear-gradient(140deg, rgba(170, 210, 255, 0.35) 0 26%, transparent 26% 100%),
+    linear-gradient(320deg, rgba(200, 230, 255, 0.30) 0 22%, transparent 22% 100%),
+    linear-gradient(
+      135deg,
+      #f6fbff,
+      #edf6ff,
+      #f9fcff
+    );
+}
+
+.cover.t-skyglass::before{
+  content:"";
+  position:absolute;
+  inset: 150px 120px;
+  transform: rotate(-8deg);
+  background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(230,245,255,0.30));
+  border-radius: 22px;
+  backdrop-filter: blur(2px);
+  z-index:0;
+}
+
+.cover.t-skyglass::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 80% 30%, rgba(180,220,255,0.15), transparent 60%);
+  z-index:0;
+}
+
+
