@@ -49,8 +49,13 @@ $("templateSelect")?.addEventListener("change", () => {
   const cover = $("cover");
   const val = $("templateSelect").value;
 
+  cover.style.display = "none";
   cover.classList.remove(...ALL_TEMPLATES);
-  cover.classList.add(val);
+
+  setTimeout(() => {
+    cover.classList.add(val);
+    cover.style.display = "";
+  }, 10);
 
   saveForm();
 });
@@ -472,6 +477,8 @@ function updateTeachersByDept(dept) {
     opt.textContent=name;
     teacherSelect.appendChild(opt);
   });
+
+  teacherSelect.selectedIndex = -1;
 }
 
 $("toDept")?.addEventListener("change", (e) => {
@@ -480,6 +487,12 @@ $("toDept")?.addEventListener("change", (e) => {
   $("toName").value = "";
   setText("pToDept", dept);
   setText("pToName", "TEACHER NAME");
+  saveForm();
+});
+
+$("teacherSelect")?.addEventListener("change", function(){
+  $("toName").value = this.value;
+  setText("pToName", this.value.toUpperCase());
   saveForm();
 });
 
@@ -584,4 +597,5 @@ pdf.save(`${namePart}_${codePart}_Cover.pdf`);
 
   btn.classList.remove("is-loading");
 });
+
 
