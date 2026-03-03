@@ -459,15 +459,18 @@ if (desigSelect) {
 
 /* ========= TEACHER FILTER ========= */
 function updateTeachersByDept(dept) {
-  const teacherList = $("teacherList");
-  if (!teacherList) return;
-  teacherList.innerHTML = "";
+  const teacherSelect = $("teacherSelect");
+  if (!teacherSelect) return;
+
+  teacherSelect.innerHTML = "";
+
   if (!teacherData[dept]) return;
 
   teacherData[dept].forEach(name=>{
     const opt=document.createElement("option");
     opt.value=name;
-    teacherList.appendChild(opt);
+    opt.textContent=name;
+    teacherSelect.appendChild(opt);
   });
 }
 
@@ -581,3 +584,4 @@ pdf.save(`${namePart}_${codePart}_Cover.pdf`);
 
   btn.classList.remove("is-loading");
 });
+
