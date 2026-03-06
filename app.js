@@ -399,7 +399,7 @@ const teacherData = {
 "Afsana Mimi"
 ],
 
-"Department of Computer Science and Engineering (CSE)": [
+"Department of Computer Science and Engineering": [
 "Prof. Dr. Abu Kalam Md. Farid Uddin",
 "Dr. Md. Mizanur Rahman",
 "Dr. Iles Pramanik",
@@ -413,7 +413,7 @@ const teacherData = {
 "Md. Faruk Hosen"
 ],
 
-"Department of Electrical and Electronic Engineering (EEE)": [
+"Department of Electrical and Electronic Engineering": [
 "Dr. Sumon Kumar Debnath",
 "Dr. Md. Ferdous Rahman",
 "Dr. Md. Ahsan Habib",
@@ -597,5 +597,6 @@ pdf.save(`${namePart}_${codePart}_Cover.pdf`);
 
   btn.classList.remove("is-loading");
 });
+
 
 
