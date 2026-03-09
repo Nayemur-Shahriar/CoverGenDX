@@ -384,7 +384,7 @@ const teacherData = {
 "Md. Nurul Kabir Biplob",
 "Dr. Md. Ataur Rahman",
 "Dr. Md. Sazzad Hossain Patwary",
-"Dr. Md. Saib Miyan",
+"Dr. Md. Sazib Miyan",
 "Md. Touhidul Islam",
 "Nusrat Jahan Sadia",
 "Tanvir Hasan Anik"
