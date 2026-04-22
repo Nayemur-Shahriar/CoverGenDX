@@ -400,7 +400,7 @@ const teacherData = {
 ],
 
 "Department of Computer Science and Engineering": [
-"Prof. Dr. Abu Kalam Md. Farid Uddin",
+"Dr. Abu Kalam Md. Farid Ul Islam",
 "Dr. Md. Mizanur Rahman",
 "Dr. Iles Pramanik",
 "Dr. Prodip Kumar Sarker",
